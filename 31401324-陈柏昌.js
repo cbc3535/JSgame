@@ -375,6 +375,7 @@ function runGame(plans, Display) {
         {
             alert("Game Over!");
             startLevel(0);
+            life = 3;
         }
       }
       else if (n < plans.length - 1)
