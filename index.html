@@ -200,6 +200,20 @@
 		if(game.direction == "left") {game.y -= 1; }// 左移
 		if(game.direction == "up") {game.x -= 1; }// 上移
 		if(game.direction == "down") {game.x += 1; }// 下移
+		if(navigator.userAgent.indexOf("MSIE")>0){ // 设置暂停
+     		document.onkeydown = function(){
+		if(event.keyCode == 27){
+		  alert('Click and continue game.');
+		}
+	      }
+	    }
+	    else{
+	      window.onkeydown = function(){
+		if(event.keyCode == 27){
+		  alert('Click and continue game.');
+		}
+	      }
+	    }
 		// 判断游戏是否结束
 		if(result() == true) {
 			clearTimeout(game.time); clearTimeout(appearTime); clearTimeout(disappearTime);
