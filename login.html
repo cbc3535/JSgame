@@ -1,0 +1,73 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<link rel="stylesheet" href="./css/bootstrap.min.css">
+<style>  
+body{  
+margin-left:auto;  
+margin-right:auto; 
+margin-TOP:100PX; 
+width:20em;  
+}
+</style>
+<body>
+<!--下面是用户名输入框-->
+<div class="input-group">
+  <span class="input-group-addon" id="basic-addon1">@</span>
+  <input id="userName" type="text" class="form-control" placeholder="用户名" aria-describedby="basic-addon1">
+</div>
+<br>
+<!--下面是密码输入框-->
+<div class="input-group">
+  <span class="input-group-addon" id="basic-addon1">@</span>
+  <input id="passWord" type="password" class="form-control" placeholder="输入密码" aria-describedby="basic-addon1">
+</div>
+<br>
+<!--下面是登陆按钮,包括颜色控制-->
+<button type="button" style="width:280px;" class="btn btn-danger" onclick="reg()">登 录</button>
+<bar>
+<button type="button" style="width:280px;" class="btn btn-link" onclick="reg1()">注 册</button>
+<script>
+  var name = "";
+  var pass = "";
+  var notes = JSON.parse(localStorage.getItem("mytest"))||{"admin":"admin"};
+  var ylogin = JSON.parse(localStorage.getItem("login"))||{};
+  if(ylogin !=null){
+    for(var name in ylogin){
+      if(ylogin.hasOwnProperty(name)){
+        document.getElementById("userName").value = name;
+        document.getElementById("passWord").value = ylogin[name];
+        break;
+      }    
+    }
+  }
+  function login(){
+    name = document.getElementById("userName").value;
+    pass = document.getElementById("passWord").value;
+    if(name.length >20||name.length <4){
+       alert("用户名错误（请查看长度）");
+       return;
+    }
+    if(name in notes){
+      if(notes[name]== pass){
+        localStorage.clear("login");
+        ylogin[name] = pass;
+        localStorage.setItem("login",JSON.stringify(ylogin));
+        alert("登录成功");        
+      }
+      else{
+        alert("账号不存在或是密码错误");
+      }
+    }else{
+      alert("账号不存在或是密码错误");
+    }
+  }
+  function reg(){
+    window.location.href='index.html';
+  }
+  function reg1(){
+    window.location.href='registered.html';
+  }
+</script>
+</body>
+</head>

@@ -1,0 +1,54 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<link rel="stylesheet" href="./css/bootstrap.min.css">
+<style>  
+body{  
+    margin-left:auto;  
+    margin-right:auto; 
+    margin-TOP:100PX; 
+    width:20em;  
+}
+</style>
+<body>
+    <!--下面是用户名输入框-->
+    <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1">@</span>
+    <input id="userName" type="text" class="form-control" placeholder="请输入用户名" aria-describedby="basic-addon1">
+    </div>
+    <br>
+    <!--下面是密码输入框-->
+    <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1">@</span>
+    <input id="passWord1" type="password" class="form-control" placeholder="请输入密码" aria-describedby="basic-addon1">
+    </div>
+    <br>
+    <!--下面是密码输入框-->
+    <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1">@</span>
+    <input id="passWord2" type="password" class="form-control" placeholder="再次输入密码" aria-describedby="basic-addon1">
+    </div>
+    <br>
+    <!--下面是登陆按钮,包括颜色控制-->
+    <button type="button" style="width:280px;" class="btn btn-warning" onclick="addReg()">注 册</button>
+    <script>
+        var list = {"admin":"admin"};
+        function saveToStorage(notes){
+            localStorage.setItem("mytest",JSON.stringify(notes));
+        }
+        function addReg(){
+            var name = document.getElementById("userName").value;
+            var pass = document.getElementById("passWord1").value;
+            var pass2 = document.getElementById("passWord2").value;
+            if(pass != pass2){
+                 alert("两次输入密码不同！");
+                 return;
+            }
+            list[name] = pass;
+            saveToStorage(list);
+            alert("注册成功");
+            
+        }
+    </script>
+</body>
+</head>
