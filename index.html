@@ -17,7 +17,7 @@
 			border-radius:10px 10px 10px 10px;
 			position:absolute;
 			top:0px;
-			left:685px;
+			left:700px;
 			width:180px;
 			height:510px;
 			border: 5px solid #CCC;
@@ -66,12 +66,15 @@
 		}
 	</style>
 	<script>
+	/(iPhone|iPad|iPhone OS|Phone|iPod|iOS)/i.test(navigator.userAgent)&&(head=document.getElementsByTagName("head"),viewport=document.createElement("meta"),viewport.name="viewport",viewport.content="target-densitydpi=device-dpi, width=480px, user-scalable=no",head.length>0&&head[head.length-1].appendChild(viewport));
 	var snake = [];// 蛇数组
+	var ylogin;
 	var barrers = [];// 障碍物数组
 	var game = {sizeX:"30",sizeY:"40",record:"0",record1:"0",record2:"0",record3:"0",record4:"0"};
 	var appearTime = disappearTime =  0;// 超级食物出现
 	var superFoodX = superFoodY = null;
 	var color = 0;// 食物颜色
+	function saveToStorage(notes){localStorage.setItem("login",JSON.stringify(notes));}
 	function init(){
 		clearTimeout(game.time);
 		snake = [];
@@ -82,6 +85,11 @@
 		game.rate = null;
 		game.lengths = 2;// 蛇的长度
 		game.score = 0;
+		ylogin = JSON.parse(localStorage.getItem("login"))||{"admin":[1,0]};// 存储
+        if(ylogin["admin"][0]>game.record)
+            game.record = ylogin["admin"][0];
+	   	if(ylogin["admin"][1]>game.record1)
+	   		game.record1 = ylogin["admin"][1];
 		$("scoreDiv").innerHTML = "得分："+game.score+"<br/><br/>长度："+ game.lengths+"<br/><br/>"+"最一高分："+game.record+"<br/><br/>"+"第二高分："+game.record1;
 		$("pass").disabled = false;
 		$("rate").disabled = false;
@@ -90,7 +98,8 @@
 		barrer();// 设置障碍物
 		$("result").style.visibility = "hidden";
 		snake.push("tb_" + game.x + "_" + (game.y-1));
-		snake.push("tb_" + game.x + "_" + game.y);// 蛇头
+		snake.push("tb_" + game.x + "_" + game.y);// 蛇头		
+  	
 	}
 	function $(id){
 		return document.getElementById(id);
@@ -230,6 +239,9 @@
 				game.record1 = game.record;
 				game.record = game.score;
 				$("scoreDiv").innerHTML = "得分：" + game.score + "<br/><br/>最一高分：" + game.record+ "<br/><br/>最二高分：" + game.record1;
+				ylogin["admin"][0] = game.record;// 存储
+				ylogin["admin"][1] = game.record1;
+            	saveToStorage(ylogin);		
 			}
 			res += "您的得分为：" + game.score + "<br/>长度:"+game.lengths;
 			$("result").style.visibility = "visible";
@@ -302,7 +314,7 @@
 			clearTimeout(disappearTime);
 		}
 		game.lengths += 1;
-		$("scoreDiv").innerHTML = "得分："+game.score+"<br/><br/>长度："+game.lengths+"<br/><br/>最高分："+game.record;
+		$("scoreDiv").innerHTML = "得分："+game.score+"<br/><br/>长度："+ game.lengths+"<br/><br/>"+"最一高分："+game.record+"<br/><br/>"+"第二高分："+game.record1;
 	}
 	// 游戏结束
 	function result() {
