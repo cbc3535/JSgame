@@ -5,6 +5,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 	<style type="text/css">
 		.backDiv {
+			border-radius:10px 10px 10px 10px;
 			text-align: center;
 			position:absolute;
 			top:20px;
@@ -13,17 +14,19 @@
 			height:550px;
 		}
 		.display {
+			border-radius:10px 10px 10px 10px;
 			position:absolute;
 			top:0px;
 			left:685px;
 			width:180px;
 			height:510px;
-			border: 5px solid black;
+			border: 5px solid #CCC;
 			background-color: #ccffff;
 		}
 		#gamePanel table {
+			border-radius:10px 10px 10px 10px;
 			border-collapse: collapse;/*合并单元格边框*/
-			border: 5px solid black;
+			border: 5px solid #CCC;
 			background-color: #f0f0f0;
 		}
 		#gamePanel td {
@@ -46,15 +49,16 @@
 			font-weight: bold;
 		}
 		#operator {
+			border-radius:10px 10px 10px 10px;
 			position: absolute;
 			top:550px;
-			left:100px;
+			left:200px;
 		}
 		#result {
 			position: absolute;
 			top:200px;
 			left:220px;
-			background-color: #00ffff;
+			background-color:#CCC;
 			font-size: 20px;
 			font-weight: bold;
 			text-align: left;
@@ -78,7 +82,7 @@
 		game.rate = null;
 		game.lengths = 2;// 蛇的长度
 		game.score = 0;
-		$("scoreDiv").innerHTML = "得分："+game.score+"<br/><br/>长度："+ game.lengths+"<br/><br/>"+"最一高分："+game.record+"<br/><br/>"+"第二高分："+game.record1+"<br/><br/>";
+		$("scoreDiv").innerHTML = "得分："+game.score+"<br/><br/>长度："+ game.lengths+"<br/><br/>"+"最一高分："+game.record+"<br/><br/>"+"第二高分："+game.record1;
 		$("pass").disabled = false;
 		$("rate").disabled = false;
 		$("start").disabled = false;
@@ -131,6 +135,8 @@
 		if(passValue == 3) {
 			for(var i=8; i<game.sizeY-8; i++) {
 				barrers.push("tb_" + Math.floor(game.sizeX/2) + "_" + i);
+				barrers.push("tb_" + Math.floor(game.sizeX/3) + "_" + i);
+				barrers.push("tb_" + Math.floor(game.sizeX/4) + "_" + i);
 			}
 			for(var i=6; i<game.sizeX-6; i++) {
 				barrers.push("tb_" + i + "_" + Math.floor(game.sizeY/2));
@@ -138,7 +144,7 @@
 		}
 		if(passValue == 4) {
 			for(var i=12; i<game.sizeY-11; i++) {
-				barrers.push("tb_" + Math.floor(game.sizeX/2) + "_" + i);
+				barrers.push("tb_" + Math.floor(game.sizeX/5) + "_" + i);
 			}
 			for(var j=6; j<game.sizeX-6; j++) {
 				barrers.push("tb_" + j + "_" + Math.floor(game.sizeY/2+1));
@@ -200,20 +206,20 @@
 		if(game.direction == "left") {game.y -= 1; }// 左移
 		if(game.direction == "up") {game.x -= 1; }// 上移
 		if(game.direction == "down") {game.x += 1; }// 下移
-		if(navigator.userAgent.indexOf("MSIE")>0){ // 设置暂停
-     		document.onkeydown = function(){
-		if(event.keyCode == 27){
-		  alert('Click and continue game.');
-		}
-	      }
-	    }
-	    else{
-	      window.onkeydown = function(){
-		if(event.keyCode == 27){
-		  alert('Click and continue game.');
-		}
-	      }
-	    }
+		if(navigator.userAgent.indexOf("MSIE")>0){
+      document.onkeydown = function(){
+        if(event.keyCode == 27){
+          alert('Click and continue game.');
+        }
+      }
+    }
+    else{
+      window.onkeydown = function(){
+        if(event.keyCode == 27){
+          alert('Click and continue game.');
+        }
+      }
+    }
 		// 判断游戏是否结束
 		if(result() == true) {
 			clearTimeout(game.time); clearTimeout(appearTime); clearTimeout(disappearTime);
@@ -320,9 +326,9 @@
 	}
 	</script>
 </head>
-<body onload="init();" onkeyup="control(event);" > 
+<body onload="init();" onkeyup="control(event);" >
 <div class="backDiv">
-	<div class="display">
+	<div class="display" style="background:#CCC">
 		<div id="scoreDiv">分数：0</div><br/>
 		<div id="prompt"></div>
 	</div>
@@ -343,7 +349,7 @@
 		<input type="button" id="start" value="开始" onclick="startGame();" />&nbsp&nbsp
 		<input type="button" id="resets" value="重玩" onclick="init();" />
 	</div>
-	<div id="result"></div>
+	<div id="result" style="background:#CCC"></div>
 </div>
 <div style="text-align:center;">
 </div>
